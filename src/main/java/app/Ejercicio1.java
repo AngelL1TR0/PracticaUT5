@@ -16,32 +16,35 @@ public class Ejercicio1 {
             System.out.println("Ahora introduce la contraseña para el usuario con DNI " + dni);
             String contraseña = sc.nextLine();
             int opcion = -1;
-            if (){
-            while (opcion != 0) {
+
+
+            if (clienteService.findClientByDni(dni, contraseña) != null) {
                 imprimeMenu();
-                opcion = sc.nextInt();
-                ClienteEntity cliente = null;
-                switch (opcion) {
-                    case 1:
-                        System.out.println("Saliendo de la aplicacion");
-                        System.exit(0);
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    default:
-                        System.out.println("Valor no valido introduce uno valido");
+                while (opcion != 0) {
+                    imprimeMenu();
+                    opcion = sc.nextInt();
+                    switch (opcion) {
+                        case 1:
+                            System.out.println("Saliendo de la aplicacion");
+                            System.exit(0);
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        default:
+                            System.out.println("Valor no valido introduce uno valido");
+
+                    }
                 }
             }
-            }
         }
-
     }
-    private static void imprimeMenu(){
-        System.out.println("Bienvenido al sistema" + "\n Elige una opcion"  );
+
+    private static void imprimeMenu() {
+        System.out.println("Bienvenido al sistema" + "\n Elige una opcion");
         System.out.println("1. Salir\n2. Comprar\n3. Ver carrito\n 4. Ver mis pedidos");
     }
 }

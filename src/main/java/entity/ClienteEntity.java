@@ -15,31 +15,31 @@ import java.util.List;
 @Entity
 @Table(name = "cliente")
 public class ClienteEntity implements Serializable {
-    @Column(name="id")
+    @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
-    @Column(name="pass")
+    @Column(name = "pass")
     private String pass;
-    @Column(name="dni")
+    @Column(name = "dni")
     private String dni;
-    @Column(name="nombre")
+    @Column(name = "nombre")
     private String nombre;
-    @Column(name="primer_apellido")
+    @Column(name = "primer_apellido")
     private String primerApellido;
-    @Column(name="segundo_apellido")
+    @Column(name = "segundo_apellido")
     private String segundoApellido;
-    @Column(name="telefono")
+    @Column(name = "telefono")
     private String telefono;
-    @Column(name="usu_cre")
+    @Column(name = "usu_cre")
     private String usuCre;
-    @Column(name="fec_cre")
+    @Column(name = "fec_cre")
     private Timestamp fecCre;
-    @Column(name="usu_mod")
+    @Column(name = "usu_mod")
     private String usuMod;
-    @Column(name="fec_mod")
+    @Column(name = "fec_mod")
     private Timestamp fecMod;
     @OneToMany(mappedBy = "cliente", cascade = {CascadeType.PERSIST})
     private List<DireccionEntity> direcciones;
