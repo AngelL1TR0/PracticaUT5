@@ -1,5 +1,6 @@
 package app;
 
+import entity.ClienteEntity;
 import service.ClienteService;
 
 import java.util.Scanner;
@@ -15,17 +16,26 @@ public class Ejercicio1 {
             System.out.println("Ahora introduce la contraseña para el usuario con DNI " + dni);
             String contraseña = sc.nextLine();
             int opcion = -1;
-            while (opcion != 0){
+            if (){
+            while (opcion != 0) {
                 imprimeMenu();
                 opcion = sc.nextInt();
                 ClienteEntity cliente = null;
-                switch (opcion){
+                switch (opcion) {
                     case 1:
                         System.out.println("Saliendo de la aplicacion");
                         System.exit(0);
                         break;
                     case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    default:
+                        System.out.println("Valor no valido introduce uno valido");
                 }
+            }
             }
         }
 
