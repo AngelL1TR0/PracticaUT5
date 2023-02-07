@@ -14,14 +14,17 @@ public class ProductoService {
 
 
     public List<ProductoEntity> listProducts() {
-        try (Session session = HibernateConfiguration.getSessionFactory().openSession()){
+        int contador = 1;
+        List<ProductoEntity> productos;
+        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             session.beginTransaction();
-            List<ProductoEntity> productos = productoDao.listProductos(session);
-            for (ProductoEntity productoEntity: productos) {
-
-
+            productos = productoDao.listProductos(session);
+            for (ProductoEntity productoEntity : productos) {
+                System.out.println(contador + " " + productoEntity.getNombre() + " (" + productoEntity.getPrecio() + " €)");
+                contador++;
             }
 
         }
+        return productos;
     }
 }

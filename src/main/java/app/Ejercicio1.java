@@ -18,7 +18,6 @@ public class Ejercicio1 {
 
         try (Scanner sc = new Scanner(System.in)) {
 
-            do {
                 System.out.println("Bienvenido al sistema\nIntroduce el DNI del cliente");
                 String dni = sc.nextLine();
                 System.out.println("Ahora introduce la contraseña para el usuario con DNI " + dni);
@@ -34,7 +33,6 @@ public class Ejercicio1 {
                     cliente = clienteService.findClientByDni(dni, pass);
 
                 }
-            } while (cliente == null);
 
             System.out.println("Bienvenido " + cliente.getNombre() + " " + cliente.getPrimerApellido() + " " + cliente.getSegundoApellido());
 
