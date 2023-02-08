@@ -24,4 +24,14 @@ public class ProductoService {
         }
         return productos;
     }
+
+    public List<ProductoEntity> listTypeOfProduct() {
+        int contador = 1;
+        List<ProductoEntity> productos;
+        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+            session.beginTransaction();
+            productos = productoDao.listTypeOfProductos(session);
+        }
+        return productos;
+    }
 }

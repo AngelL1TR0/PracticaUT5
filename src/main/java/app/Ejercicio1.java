@@ -11,30 +11,31 @@ import java.util.logging.Formatter;
 
 public class Ejercicio1 {
 
+    private static ClienteService clienteService = new ClienteService();
+    private static ProductoService productoService = new ProductoService();
+    private static ClienteEntity cliente;
+    private static ProductoEntity producto;
+
     public static void main(String[] args) {
 
-        ClienteService clienteService = new ClienteService();
-        ProductoService productoService = new ProductoService();
-        ClienteEntity cliente;
-        ProductoEntity producto;
 
         try (Scanner sc = new Scanner(System.in)) {
 
-                System.out.println("Bienvenido al sistema\nIntroduce el DNI del cliente");
-                String dni = sc.nextLine();
-                System.out.println("Ahora introduce la contraseña para el usuario con DNI " + dni);
-                String pass = sc.nextLine();
+            System.out.println("Bienvenido al sistema\nIntroduce el DNI del cliente");
+            String dni = sc.nextLine();
+            System.out.println("Ahora introduce la contraseña para el usuario con DNI " + dni);
+            String pass = sc.nextLine();
+            cliente = clienteService.findClientByDni(dni, pass);
+
+            while (cliente == null) {
+                System.out.println("Datos incorrectos\n" +
+                        "Introduce de nuevo el DNI:");
+                dni = sc.nextLine();
+                System.out.println("Contraseña para el usuario con DNI " + dni);
+                pass = sc.nextLine();
                 cliente = clienteService.findClientByDni(dni, pass);
 
-                while (cliente == null){
-                    System.out.println("Datos incorrectos\n" +
-                            "Introduce de nuevo el DNI:");
-                    dni = sc.nextLine();
-                    System.out.println("Contraseña para el usuario con DNI " + dni);
-                    pass = sc.nextLine();
-                    cliente = clienteService.findClientByDni(dni, pass);
-
-                }
+            }
 
             System.out.println("Bienvenido " + cliente.getNombre() + " " + cliente.getPrimerApellido() + " " + cliente.getSegundoApellido());
 
@@ -56,6 +57,7 @@ public class Ejercicio1 {
                                 System.out.println(contador + " " + productoEntity.getNombre() + " (" + numberFormat.format(productoEntity.getPrecio()) + ")");
                                 contador++;
                             }
+                            menuTallas(sc, productos);
                             break;
                         case 3:
                             break;
@@ -67,6 +69,21 @@ public class Ejercicio1 {
                 }
             } while (cliente != null);
         }
+    }
+
+    private static void menuTallas(Scanner sc, List<ProductoEntity> productos) {
+        int indexProducto = -1;
+        System.out.println("Introduce el numero del articulo que quieres comprar?");
+        indexProducto = sc.nextInt();
+        while (indexProducto != 0)
+            switch (indexProducto) {
+                case 1:
+                   productoService.listTypeOfProduct();
+                    break;
+                case 2:
+                    System.out.println(productos.indexOf(indexProducto));
+                    break;
+            }
     }
 
     private static void imprimeMenu() {
