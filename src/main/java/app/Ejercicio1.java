@@ -1,8 +1,10 @@
 package app;
 
 import entity.ClienteEntity;
+import entity.PedidoEntity;
 import entity.ProductoEntity;
 import service.ClienteService;
+import service.PedidoService;
 import service.ProductoService;
 
 import java.text.NumberFormat;
@@ -13,8 +15,8 @@ public class Ejercicio1 {
     private static ClienteService clienteService = new ClienteService();
     private static ProductoService productoService = new ProductoService();
     private static ClienteEntity cliente;
-    private static ProductoEntity producto;
-    private static List<ProductoEntity> bolsaCompra;
+    private static List<PedidoEntity> bolsaCompra;
+    private static PedidoService pedidoService = new PedidoService();
 
     public static void main(String[] args) {
 
@@ -39,6 +41,12 @@ public class Ejercicio1 {
 
             System.out.println("Bienvenido " + cliente.getNombre() + " " + cliente.getPrimerApellido() + " " + cliente.getSegundoApellido());
 
+            menuPrincipal();
+        }
+    }
+
+    private static void menuPrincipal() {
+        try (Scanner sc = new Scanner(System.in)){
             int opcion = -1;
             do {
                 while (opcion != 0) {
@@ -80,7 +88,6 @@ public class Ejercicio1 {
             System.out.println("Introduce el numero del articulo que quieres comprar?");
             indexProducto = sc.nextInt();
             do {
-
                 while (indexProducto != 0) {
                     switch (indexProducto) {
                         case 1:
@@ -89,7 +96,8 @@ public class Ejercicio1 {
                         case 2:
                             nombre = productos.get(indexProducto - 1).getNombre();
                             productoService.listTypeOfProduct(nombre);
-                            bolsaCompra.add(productos.get(indexProducto-1));
+                            bolsaCompra = pedidoService.guardaPedido(productos.get(indexProducto -1));
+                            menuPrincipal();
                             System.exit(0);
                             break;
                         case 3:
