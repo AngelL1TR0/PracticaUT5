@@ -7,7 +7,6 @@ import service.ProductoService;
 
 import java.text.NumberFormat;
 import java.util.*;
-import java.util.logging.Formatter;
 
 public class Ejercicio1 {
 
@@ -15,6 +14,7 @@ public class Ejercicio1 {
     private static ProductoService productoService = new ProductoService();
     private static ClienteEntity cliente;
     private static ProductoEntity producto;
+    private static List<ProductoEntity> bolsaCompra;
 
     public static void main(String[] args) {
 
@@ -51,13 +51,14 @@ public class Ejercicio1 {
                             break;
                         case 2:
                             List<ProductoEntity> productos = productoService.listProducts();
-                            int contador = 1;
+                            int contador = 2;
                             NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("ES", "ES"));
+                            System.out.println("1- Volver");
                             for (ProductoEntity productoEntity : productos) {
                                 System.out.println(contador + " " + productoEntity.getNombre() + " (" + numberFormat.format(productoEntity.getPrecio()) + ")");
                                 contador++;
                             }
-                            menuTallas(sc, productos);
+                            menuTallas(productos);
                             break;
                         case 3:
                             break;
@@ -65,25 +66,51 @@ public class Ejercicio1 {
                             break;
                         default:
                             System.out.println("Valor no valido introduce uno valido");
+                            opcion = sc.nextInt();
                     }
                 }
             } while (cliente != null);
         }
     }
 
-    private static void menuTallas(Scanner sc, List<ProductoEntity> productos) {
-        int indexProducto = -1;
-        System.out.println("Introduce el numero del articulo que quieres comprar?");
-        indexProducto = sc.nextInt();
-        while (indexProducto != 0)
-            switch (indexProducto) {
-                case 1:
-                   productoService.listTypeOfProduct();
-                    break;
-                case 2:
-                    System.out.println(productos.indexOf(indexProducto));
-                    break;
-            }
+    private static void menuTallas(List<ProductoEntity> productos) {
+        int indexProducto = 1;
+        String nombre = "";
+        try (Scanner sc = new Scanner(System.in)) {
+            System.out.println("Introduce el numero del articulo que quieres comprar?");
+            indexProducto = sc.nextInt();
+            do {
+
+                while (indexProducto != 0) {
+                    switch (indexProducto) {
+                        case 1:
+                            imprimeMenu();
+                            break;
+                        case 2:
+                            nombre = productos.get(indexProducto - 1).getNombre();
+                            productoService.listTypeOfProduct(nombre);
+                            bolsaCompra.add(productos.get(indexProducto-1));
+                            System.exit(0);
+                            break;
+                        case 3:
+                            nombre = productos.get(indexProducto - 1).getNombre();
+                            productoService.listTypeOfProduct(nombre);
+                            System.exit(0);
+                            break;
+                        case 4:
+                            nombre = productos.get(indexProducto - 1).getNombre();
+                            productoService.listTypeOfProduct(nombre);
+                            System.exit(0);
+                            break;
+                        case 5:
+                            nombre = productos.get(indexProducto - 1).getNombre();
+                            productoService.listTypeOfProduct(nombre);
+                            System.exit(0);
+                            break;
+                    }
+                }
+            } while (cliente != null);
+        }
     }
 
     private static void imprimeMenu() {

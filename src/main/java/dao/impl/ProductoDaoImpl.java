@@ -25,8 +25,8 @@ public class ProductoDaoImpl implements ProductoDao {
     }
 
     @Override
-    public List<ProductoEntity> listTypeOfProductos(Session session) {
-        String hql = "select distinct  talla , color from producto p where estado = 1 or estado = 3";
+    public List<ProductoEntity> listTypeOfProductos(Session session, String nombre) {
+        String hql = "select distinct  talla , color from producto p where nombre = '" + nombre + "' and estado = 1 or estado = 3";
         List<Object[]> query = session.createNativeQuery(hql).list();
         List<ProductoEntity> productoEntities = new ArrayList<>();
         for (Object[] productoEntity : query ) {

@@ -25,12 +25,19 @@ public class ProductoService {
         return productos;
     }
 
-    public List<ProductoEntity> listTypeOfProduct() {
-        int contador = 1;
+    public List<ProductoEntity> listTypeOfProduct(String nombre) {
+        int contador = 2;
         List<ProductoEntity> productos;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             session.beginTransaction();
-            productos = productoDao.listTypeOfProductos(session);
+            productos = productoDao.listTypeOfProductos(session, nombre);
+            System.out.println(
+                    nombre +
+                            "\n 1- Volver");
+            for (ProductoEntity productEntity : productos){
+                System.out.println(" " + contador + "- Talla " + productEntity.getTalla() + " " + productEntity.getColor());
+                contador++;
+            }
         }
         return productos;
     }

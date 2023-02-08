@@ -8,5 +8,5 @@ import java.util.List;
 public interface ProductoDao {
     List<ProductoEntity> listProductos(Session session);
 
-    List<ProductoEntity> listTypeOfProductos(Session session);
+    List<ProductoEntity> listTypeOfProductos(Session session, String nombre);
 }
