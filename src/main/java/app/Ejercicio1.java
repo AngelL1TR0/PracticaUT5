@@ -5,7 +5,9 @@ import entity.ProductoEntity;
 import service.ClienteService;
 import service.ProductoService;
 
-import java.util.Scanner;
+import java.text.NumberFormat;
+import java.util.*;
+import java.util.logging.Formatter;
 
 public class Ejercicio1 {
 
@@ -47,7 +49,13 @@ public class Ejercicio1 {
                             System.exit(0);
                             break;
                         case 2:
-                            productoService.listProducts();
+                            List<ProductoEntity> productos = productoService.listProducts();
+                            int contador = 1;
+                            NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("ES", "ES"));
+                            for (ProductoEntity productoEntity : productos) {
+                                System.out.println(contador + " " + productoEntity.getNombre() + " (" + numberFormat.format(productoEntity.getPrecio()) + ")");
+                                contador++;
+                            }
                             break;
                         case 3:
                             break;

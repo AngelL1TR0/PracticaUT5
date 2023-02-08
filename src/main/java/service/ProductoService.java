@@ -6,7 +6,9 @@ import dao.impl.ProductoDaoImpl;
 import entity.ProductoEntity;
 import org.hibernate.Session;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ProductoService {
 
@@ -19,11 +21,6 @@ public class ProductoService {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             session.beginTransaction();
             productos = productoDao.listProductos(session);
-            for (ProductoEntity productoEntity : productos) {
-                System.out.println(contador + " " + productoEntity.getNombre() + " (" + productoEntity.getPrecio() + " €)");
-                contador++;
-            }
-
         }
         return productos;
     }
