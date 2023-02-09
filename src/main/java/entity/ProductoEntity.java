@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Data
@@ -31,7 +32,7 @@ public class ProductoEntity implements Serializable {
     @Column(name = "color")
     private String color;
     @Column(name = "precio")
-    private Integer precio;
+    private BigDecimal precio;
     @Column(name = "descuento")
     private Integer descuento;
     @Column(name = "estado")
