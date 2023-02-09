@@ -19,7 +19,6 @@ public class Main {
     private static ClienteService clienteService = new ClienteService();
     private static ProductoService productoService = new ProductoService();
     private static ClienteEntity cliente;
-    private static List<PedidoEntity> ListaPedidos;
     private static List<ProductoEntity> carrito;
     private static PedidoService pedidoService = new PedidoService();
 
@@ -53,11 +52,11 @@ public class Main {
             System.out.println("Bienvenido " + cliente.getNombre() + " " + cliente.getPrimerApellido() + " " + cliente.getSegundoApellido());
 
             carrito = new ArrayList<>();
-            menuPrincipal(carrito);
+            menuPrincipal(carrito, cliente);
         }
     }
 
-    private static void menuPrincipal(List<ProductoEntity> carrito) {
+    private static void menuPrincipal(List<ProductoEntity> carrito, ClienteEntity cliente) {
         try (Scanner sc = new Scanner(System.in)) {
             int opcion = -1;
             do {
@@ -91,6 +90,7 @@ public class Main {
                                 contador++;
                             }
                             System.out.println("Total................" + numberFormat.format(total));
+                            menuCompra(carrito, cliente);
                             break;
                         case 4:
                             break;
@@ -99,13 +99,34 @@ public class Main {
                             opcion = sc.nextInt();
                     }
                 }
-            } while (cliente != null);
+            } while (Main.cliente != null);
+        }
+    }
+
+    private static void menuCompra(List<ProductoEntity> carrito, ClienteEntity cliente) {
+        int select = -1;
+        while (select > 1 || select < 3){
+            switch (select) {
+                case 1:
+                    System.out.println("Finalizar compra:");
+                    pedidoService.guardaPedido(cliente);
+                    menuPrincipal(carrito, cliente);
+                    break;
+                case 2:
+                    System.out.println("Vaciando carrito");
+                    carrito.clear();
+                    menuPrincipal(carrito, cliente);
+                    break;
+                case 3:
+                    System.out.println("Volviendo al menu");
+                    menuPrincipal(carrito, cliente);
+                    break;
+            }
         }
     }
 
     private static void menuTallas(List<ProductoEntity> productos, List<ProductoEntity> carrito) {
-        int indexProducto = 1;
-        String nombre = "";
+        int indexProducto = -1;
         try (Scanner sc = new Scanner(System.in)) {
             System.out.println("Introduce el numero del articulo que quieres comprar?");
             indexProducto = sc.nextInt();
@@ -113,19 +134,19 @@ public class Main {
                 while (indexProducto != 0) {
                     switch (indexProducto) {
                         case 1:
-                            imprimeMenu();
+                            menuPrincipal(carrito, cliente);
                             break;
                         case 2:
-                            guardaPedido(productos, indexProducto, carrito);
+                            alCarrito(productos, indexProducto, carrito);
                             break;
                         case 3:
-                            guardaPedido(productos, indexProducto, carrito);
+                            alCarrito(productos, indexProducto, carrito);
                             break;
                         case 4:
-                            guardaPedido(productos, indexProducto, carrito);
+                            alCarrito(productos, indexProducto, carrito);
                             break;
                         case 5:
-                            guardaPedido(productos, indexProducto, carrito);
+                            alCarrito(productos, indexProducto, carrito);
                             break;
                     }
                 }
@@ -133,7 +154,7 @@ public class Main {
         }
     }
 
-    private static void guardaPedido(List<ProductoEntity> productos, int indexProducto, List<ProductoEntity> carrito) {
+    private static void alCarrito(List<ProductoEntity> productos, int indexProducto, List<ProductoEntity> carrito) {
         int contador = 2;
         String nombre = "";
         nombre = productos.get(indexProducto - 2).getNombre();
@@ -148,26 +169,27 @@ public class Main {
         try (Scanner sc = new Scanner(System.in)) {
             int seleccionado = -1;
             seleccionado = sc.nextInt();
-            while (seleccionado < 1 || seleccionado > 4) {
+            while (seleccionado > 1 || seleccionado < 4) {
                 switch (seleccionado) {
                     case 1:
                         System.out.println("Volver");
-                        menuPrincipal(carrito);
+                        menuPrincipal(carrito, cliente);
                         break;
                     case 2:
                         carrito.add(productos.get(indexProducto - 2));
                         System.out.println(nombre + " anyadido al carrito");
-                        menuPrincipal(carrito);
+                        System.out.println(carrito);
+                        menuPrincipal(carrito, cliente);
                         break;
                     case 3:
                         carrito.add(productos.get(indexProducto - 2));
                         System.out.println(nombre + " anyadido al carrito");
-                        menuPrincipal(carrito);
+                        menuPrincipal(carrito, cliente);
                         break;
                     case 4:
                         carrito.add(productos.get(indexProducto - 2));
                         System.out.println(nombre + " anyadido al carrito");
-                        menuPrincipal(carrito);
+                        menuPrincipal(carrito, cliente);
                         break;
                 }
             }

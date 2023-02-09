@@ -18,16 +18,16 @@ public class PedidoEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_cliente")
-    private ClienteEntity cliente;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "estado")
-    private EstadoPedidoEntity estado;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "direccion")
-    private DireccionEntity direccion;
+    @Column(name = "id_cliente")
+    private int cliente;
+
+    @Column(name = "estado")
+    private int estado;
+
+
+    @Column(name = "direccion")
+    private int direccion;
 
     @Column(name = "fecha")
     private Timestamp fecha;
