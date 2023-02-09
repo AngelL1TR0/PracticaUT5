@@ -9,9 +9,12 @@ import service.ProductoService;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
 
-public class Ejercicio1 {
+public class Main {
 
     private static ClienteService clienteService = new ClienteService();
     private static ProductoService productoService = new ProductoService();
@@ -20,9 +23,15 @@ public class Ejercicio1 {
     private static List<ProductoEntity> carrito;
     private static PedidoService pedidoService = new PedidoService();
 
-    public static void main(String[] args) {
+    private static void imprimeMenu() {
+        System.out.println("Elige una opcion");
+        System.out.println("1. Salir" +
+                "\n2. Comprar" +
+                "\n3. Ver carrito" +
+                "\n4. Ver mis pedidos");
+    }
 
-
+    private static void registro() {
         try (Scanner sc = new Scanner(System.in)) {
 
             System.out.println("Bienvenido al sistema\nIntroduce el DNI del cliente");
@@ -125,26 +134,21 @@ public class Ejercicio1 {
     }
 
     private static void guardaPedido(List<ProductoEntity> productos, int indexProducto, List<ProductoEntity> carrito) {
-        Scanner sc = new Scanner(System.in);
         int contador = 2;
         String nombre = "";
         nombre = productos.get(indexProducto - 2).getNombre();
         productos = productoService.listTypeOfProduct(nombre);
         System.out.println(nombre + "\n 1- Volver");
-        for (ProductoEntity productEntity : productos){
+        for (ProductoEntity productEntity : productos) {
             System.out.println(" " + contador + "- Talla " + productEntity.getTalla() + " " + productEntity.getColor());
             contador++;
         }
         System.out.println("Introduce el un numero de producto para añadir al carrito");
-        int productoCarrito = sc.nextInt();
-        if (productoCarrito == productos.indexOf(indexProducto -2)){
-            carrito.add(productos.get(indexProducto - 2));
-        }
-        /*
+
         try (Scanner sc = new Scanner(System.in)) {
             int seleccionado = -1;
             seleccionado = sc.nextInt();
-            while (seleccionado != 0) {
+            while (seleccionado < 1 || seleccionado > 4) {
                 switch (seleccionado) {
                     case 1:
                         System.out.println("Volver");
@@ -152,26 +156,25 @@ public class Ejercicio1 {
                         break;
                     case 2:
                         carrito.add(productos.get(indexProducto - 2));
+                        System.out.println(nombre + " anyadido al carrito");
+                        menuPrincipal(carrito);
                         break;
                     case 3:
                         carrito.add(productos.get(indexProducto - 2));
+                        System.out.println(nombre + " anyadido al carrito");
+                        menuPrincipal(carrito);
                         break;
                     case 4:
                         carrito.add(productos.get(indexProducto - 2));
+                        System.out.println(nombre + " anyadido al carrito");
+                        menuPrincipal(carrito);
                         break;
                 }
             }
-            }
-         */
-        System.out.println(nombre + " anyadido al carrito");
-        menuPrincipal(carrito);
+        }
     }
 
-    private static void imprimeMenu() {
-        System.out.println("Elige una opcion");
-        System.out.println("1. Salir" +
-                "\n2. Comprar" +
-                "\n3. Ver carrito" +
-                "\n4. Ver mis pedidos");
+    public static void main(String[] args) {
+        registro();
     }
 }
